@@ -1,4 +1,4 @@
-var Player = function(name, color, position, direction) {
+var Player2 = function(name, color, position, direction) {
 
     this.name = name;
     this.position = position;
@@ -18,9 +18,12 @@ var Player = function(name, color, position, direction) {
     this.graphic.position.z = 6;
 
     this.graphic.rotateOnAxis(new THREE.Vector3(0,0,1), this.direction+(3*Math.PI/2));
+
+       
+
 };
 
-Player.prototype.dead = function () {
+Player2.prototype.dead = function () {
     this.graphic.position.z = this.graphic.position.z-0.1;
         //Nettoyage de la div container
         $("#container").html("");
@@ -28,7 +31,7 @@ Player.prototype.dead = function () {
         init();
 }
 
-Player.prototype.accelerate = function (distance) {
+Player2.prototype.accelerate = function (distance) {
     var max = 2;
 
     this.speed += distance / 4;
@@ -37,7 +40,7 @@ Player.prototype.accelerate = function (distance) {
     }
 };
 
-Player.prototype.decelerate = function (distance) {
+Player2.prototype.decelerate = function (distance) {
     var min = -1;
 
     this.speed -= distance / 16;
@@ -46,21 +49,29 @@ Player.prototype.decelerate = function (distance) {
     }
 };
 
-Player.prototype.displayInfo = function () {
+Player2.prototype.displayInfo = function () {
     jQuery('#'+this.name+' >.life').text(this.life);
 }
 
-Player.prototype.turnRight = function (angle) {
+Player2.prototype.bouclette = function() {  
+    var moveDistance = 5;
+    for (var i = 0; i < 300; i++)
+    {
+        player2.position.y += moveDistance * player2.move;
+    }
+}
+
+Player2.prototype.turnRight = function (angle) {
     this.direction += angle;
     this.graphic.rotateOnAxis(new THREE.Vector3(0,0,1), +angle);
 };
 
-Player.prototype.turnLeft = function (angle) {
+Player2.prototype.turnLeft = function (angle) {
     this.direction += angle;
     this.graphic.rotateOnAxis(new THREE.Vector3(0,0,1), -angle);
 };
 
-Player.prototype.move = function () {
+Player2.prototype.move = function () {
     var moveTo = new THREE.Vector3(
         this.speed * Math.cos(this.direction) + this.position.x,
         this.speed * Math.sin(this.direction) + this.position.y,

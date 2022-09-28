@@ -27,14 +27,18 @@ function init()
     
     player1 = new Player("player1", 0xffff00, new THREE.Vector2(50, 0), 0);
     scene.add(player1.graphic);
-
+    player2 = new Player("player2", 2551375, new THREE.Vector2(50, 0), 0);
+    scene.add(player2.graphic);
+    
     light1 = new Light("sun", 0xffffff, "0,0,340");
     scene.add(light1);
+    
 }
 
 function Ground(color, size_x, size_y, nb_tile)
 {
     colors = Array(0xff0000, 0x00ff00, 0x0000ff, 0x000000);
+    colorsChoose = Array('0xffff00', '2551375');
 
     sizeOfTileX = size_x / nb_tile;
     minX = -(size_x/2);
@@ -44,10 +48,17 @@ function Ground(color, size_x, size_y, nb_tile)
     minY = -(size_y/2);
     maxY = (size_y/2);
 
+   
+
     for (x = minX; x <= maxX; x = x+sizeOfTileX){
         for (y = minY; y <= maxY; y = y+sizeOfTileY){
-
+           
             color = colors[Math.floor(Math.random()*colors.length)];
+
+            if (x <= 110 && x >= -70 && y <= 40 && y >= -40 && color == 0x000000) 
+            {
+                color = colorsChoose[Math.floor(Math.random()*colorsChoose.length)];
+            } 
        
             if (0x000000 != color)
             {
@@ -58,15 +69,16 @@ function Ground(color, size_x, size_y, nb_tile)
                 tmpGround.position.y = y;
                 scene.add(tmpGround);
             }
+            
             else
                 noGround.push([x, y]);
         }
     }
 }
 
-function Lighht(name, color, position)
+function Light(name, color, position)
 {
-    pointLight = new THREE.PointLight(color, 50, 350);
+    pointLight = new THREE.PointLight(color, 50, 2000);
 
     pointLight.position.x = position.split(',')[0];
     pointLight.position.y = position.split(',')[1];
